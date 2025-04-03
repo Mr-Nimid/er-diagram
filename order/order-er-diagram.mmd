@@ -1,0 +1,117 @@
+erDiagram
+    Product {
+        uuid Id PK
+        string Name
+        string Description
+        decimal Price
+        int StockQuantity
+        datetime CreatedAt
+        bool IsActive
+        datetime CreatedDate
+        string CreatedBy
+        datetime UpdatedDate
+        string UpdatedBy
+    }
+
+    Promotion {
+        uuid Id PK
+        string Code
+        string Description
+        decimal DiscountAmount
+        decimal DiscountPercent
+        datetime ValidFrom
+        datetime ValidTo
+        bool IsActive
+        datetime CreatedDate
+        string CreatedBy
+        datetime UpdatedDate
+        string UpdatedBy
+    }
+
+    Cart {
+        uuid Id PK
+        uuid UserId FK
+        datetime CreatedAt
+        bool IsActive
+        datetime CreatedDate
+        string CreatedBy
+        datetime UpdatedDate
+        string UpdatedBy
+    }
+
+    CartItem {
+        uuid Id PK
+        uuid CartId FK
+        uuid ProductId FK
+        int Quantity
+        bool IsActive
+        datetime CreatedDate
+        string CreatedBy
+        datetime UpdatedDate
+        string UpdatedBy
+    }
+
+    Order {
+        uuid Id PK
+        uuid UserId FK
+        uuid PromotionId FK
+        datetime OrderDate
+        string Status
+        decimal TotalAmount
+        bool IsActive
+        datetime CreatedDate
+        string CreatedBy
+        datetime UpdatedDate
+        string UpdatedBy
+    }
+
+    OrderItem {
+        uuid Id PK
+        uuid OrderId FK
+        uuid ProductId FK
+        uuid PromotionId FK
+        int Quantity
+        decimal UnitPrice
+        decimal Discount
+        bool IsActive
+        datetime CreatedDate
+        string CreatedBy
+        datetime UpdatedDate
+        string UpdatedBy
+    }
+
+    Transaction {
+        uuid Id PK
+        uuid OrderId FK
+        string PaymentMethod
+        string Status
+        decimal Amount
+        datetime PaidAt
+        bool IsActive
+        datetime CreatedDate
+        string CreatedBy
+        datetime UpdatedDate
+        string UpdatedBy
+    }
+
+    HistoryLog {
+        uuid Id PK
+        uuid OrderId FK
+        string Action
+        string PerformedBy
+        datetime PerformedAt
+        bool IsActive
+        datetime CreatedDate
+        string CreatedBy
+        datetime UpdatedDate
+        string UpdatedBy
+    }
+
+    Product ||--o{ OrderItem : included_in
+    Product ||--o{ CartItem : added_to
+    Promotion ||--o{ OrderItem : discounts
+    Promotion ||--o{ Order : applied_to
+    Cart ||--o{ CartItem : contains
+    Order ||--o{ OrderItem : has
+    Order ||--o{ Transaction : generates
+    Order ||--o{ HistoryLog : tracked_by
