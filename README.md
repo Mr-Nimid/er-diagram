@@ -1,6 +1,7 @@
 # User ER Diagram
 
-![er-diagram](https://github.com/user-attachments/assets/4f4097d8-5e8c-45d0-9965-63a06f449b56)
+![user-er-diagram](https://github.com/user-attachments/assets/8f605610-8829-4220-a347-8017df1963a0)
+
 
 This ER diagram models a user authentication and management system with the following key components:
 
