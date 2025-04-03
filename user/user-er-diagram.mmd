@@ -1,0 +1,79 @@
+erDiagram
+    Users {
+        uuid Id PK
+        string Username
+        string Email
+        char Salt
+        char PasswordHash
+        bool IsActive
+        datetime CreatedDate
+        string CreatedBy
+        datetime UpdatedDate
+        string UpdatedBy
+    }
+
+    Roles {
+        uuid Id PK
+        string Name
+        bool IsActive
+        datetime CreatedDate
+        string CreatedBy
+        datetime UpdatedDate
+        string UpdatedBy
+    }
+
+    UserRoles {
+        uuid UserId FK
+        uuid RoleId FK
+        bool IsActive
+        datetime CreatedDate
+        string CreatedBy
+        datetime UpdatedDate
+        string UpdatedBy
+    }
+
+    LoginAttemptLogs {
+        uuid Id PK
+        uuid UserId FK
+        datetime AttemptedAt
+        bool WasSuccessful
+        string IpAddress
+        string UserAgent
+        bool IsActive
+        datetime CreatedDate
+        string CreatedBy
+        datetime UpdatedDate
+        string UpdatedBy
+    }
+
+    PasswordChangeLogs {
+        uuid Id PK
+        uuid UserId FK
+        datetime ChangedAt
+        string ChangedByIp
+        bool IsActive
+        datetime CreatedDate
+        string CreatedBy
+        datetime UpdatedDate
+        string UpdatedBy
+    }
+
+    JwtSessions {
+        uuid Id PK
+        uuid UserId FK
+        string Token
+        datetime IssuedAt
+        datetime ExpiresAt
+        bool IsRevoked
+        bool IsActive
+        datetime CreatedDate
+        string CreatedBy
+        datetime UpdatedDate
+        string UpdatedBy
+    }
+
+    Users ||--o{ UserRoles : has
+    Roles ||--o{ UserRoles : assigned_to
+    Users ||--o{ LoginAttemptLogs : logs
+    Users ||--o{ PasswordChangeLogs : changed
+    Users ||--o{ JwtSessions : issues
